@@ -1,15 +1,13 @@
-import classes from '*.module.css';
+//import classes from '*.module.css';
 import React, { Component } from 'react';
 
 class Counter extends Component {   //here the class is being defined.
-    render() {
-        
-        this.state = {
+    state = {
           count: 0,
           imageUrl: "https://picsum.photos/200", //used for render random images.
           /*<img src={this.state.imageUrl}></img> */
-
-
+          tags: ["tag1", "tag2", "tag3"], //if we want to render an array of item we basically use the Vanilla js method, of mapping.
+                                          //done on line 38.
         };
         
         //this is a state block whic contains all the data we'll use in the rendered class.
@@ -20,9 +18,19 @@ class Counter extends Component {   //here the class is being defined.
       */
 //        let classes = this.newClasses();
 
-        this.style = {  //for using css properties in .jsx, we can use an object defined with css properties in Camel cases.
+        style = {  //for using css properties in .jsx, we can use an object defined with css properties in Camel cases.
             fontSize: "30px"
         }
+
+        /*we can render the DOM conditionally also. we can use methods to declare if and else statements.*/
+        renderList() {
+          if (this.state.tags.length === 0) {
+              return <p>There are no tags!</p>
+          }
+          return <ul>{this.state.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>;
+        }
+  
+    render() {
         
         return (
           //instead of wrapping using div we can also use React.Fragment.
@@ -34,21 +42,25 @@ class Counter extends Component {   //here the class is being defined.
             <button style={this.style} className="btn btn-secondary btn-sm">
               Increment
             </button>
-          </div> //the main reason of using a div here is that Babel doesn't know how to render two elements written simultaneously
+
+            {/*calling the method renderList() to render the lis */}
+            {this.renderList()}
+          </div> 
+          //the main reason of using a div here is that Babel doesn't know how to render two elements written simultaneously
           //so we need to wrap it in a div so as to run the createElement method.
         ); //this is a .jsx expression
     }
 
     newClasses() {
         const {count} = this.state; 
-        let classes = "badge m-3 badge-";
+        let class1 = "badge m-3 badge-";
         if (count === 0) {
-            classes += "warning";
+            class1 += "warning";
         }
         else {
-            classes += "primary";
+            class1 += "primary";
         }
-        return classes;
+        return class1;
     }
 
     /*
