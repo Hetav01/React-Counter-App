@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 class Counter extends Component {   //here the class is being defined.
     state = {
-          value: this.props.value,
+          value: this.props.counter.value,
           imageUrl: "https://picsum.photos/200", //used for render random images.
           /*<img src={this.state.imageUrl}></img> */
           tags: ["tag1", "tag2", "tag3"], //if we want to render an array of item we basically use the Vanilla js method, of mapping.
@@ -59,9 +59,9 @@ class Counter extends Component {   //here the class is being defined.
             <button onClick={this.handleIncrement} style={this.style} className="btn btn-secondary btn-sm">
               Increment
             </button>
-            <button onClick={this.props.onDelete} className="btn btn-danger btn m-4">Delete</button>
+            <button onClick={() => this.props.onDelete(this.props.counter.id)} className="btn btn-danger btn m-4">Delete</button>
             {/*calling the method renderList() to render the lis */}
-            {this.renderList()}
+            {/*this.renderList()*/}
           </div> 
           //the main reason of using a div here is that Babel doesn't know how to render two elements written simultaneously
           //so we need to wrap it in a div so as to run the createElement method.

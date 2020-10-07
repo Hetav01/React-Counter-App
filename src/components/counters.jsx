@@ -15,8 +15,10 @@ class Counters extends Component {
         ]
     };
 
-    handleDelete = () => {  //this is the event handler, these are always called in the parent file. i.e. the counters.jsx file.
-        console.log("delete event called")
+    handleDelete = counterID => {  //this is the event handler, these are always called in the parent file. i.e. the counters.jsx file.
+        const counters = this.state.counters.filter(c => c.id != counterID);
+        this.setState({counters: counters});
+        console.log(counterID);
     };
 
     render(){
@@ -25,8 +27,10 @@ class Counters extends Component {
             <div>
                 {this.state.counters.map(counters => 
                     <Counter 
-                    key={counters.id} 
-                    value={counters.value} 
+                    key={counters.id} //this particular property is used by react internally and hence can't be used for calling purposes so id is used.
+                    /*value={counters.value} 
+                    id={counters.id}*/ //instead of using these many prop. we can pass the object directly into the Counter. 
+                    counter={counters}
                     onDelete={this.handleDelete}
                     />)
                 };
