@@ -2,6 +2,12 @@
 import React, { Component } from 'react';
 
 class Counter extends Component {   //here the class is being defined.
+
+      componentDidUpdate(prevProps, prevState) {
+        console.log("prevProps", prevProps);
+        console.log("prevState", prevState);
+      }
+
       /*state = {
           value: this.props.counter.value,
           imageUrl: "https://picsum.photos/200", //used for render random images.
