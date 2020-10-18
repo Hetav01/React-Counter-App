@@ -2,13 +2,14 @@
 import React, { Component } from 'react';
 
 class Counter extends Component {   //here the class is being defined.
-    state = {
+      /*state = {
           value: this.props.counter.value,
           imageUrl: "https://picsum.photos/200", //used for render random images.
           /*<img src={this.state.imageUrl}></img> */
-          tags: ["tag1", "tag2", "tag3"], //if we want to render an array of item we basically use the Vanilla js method, of mapping.
+        /*  tags: ["tag1", "tag2", "tag3"], //if we want to render an array of item we basically use the Vanilla js method, of mapping.
                                           //done on line 38.
-        };
+        };*/
+        
         
         //this is a state block whic contains all the data we'll use in the rendered class.
       /*  const username = {
@@ -18,9 +19,9 @@ class Counter extends Component {   //here the class is being defined.
       */
 //        let classes = this.newClasses();
         /*CSS Styling  */
-    style = {  //for using css properties in .jsx, we can use an object defined with css properties in Camel cases.
+        style = {  //for using css properties in .jsx, we can use an object defined with css properties in Camel cases.
             fontSize: "30px"
-        }
+        };
 
         /*CONDITIONAL DOM RENDERING*/
         /*we can render the DOM conditionally also. we can use methods to declare if and else statements.*/
@@ -56,7 +57,7 @@ class Counter extends Component {   //here the class is being defined.
             <span style={this.style} className={this.newClasses()}>
               {this.formatCount()}
             </span>
-            <button onClick={this.handleIncrement} style={this.style} className="btn btn-secondary btn-sm">
+            <button onClick={() => this.props.onIncrement(this.props.counter)} style={this.style} className="btn btn-secondary btn-sm">
               Increment
             </button>
             <button onClick={() => this.props.onDelete(this.props.counter.id)} className="btn btn-danger btn m-4">Delete</button>
@@ -69,7 +70,7 @@ class Counter extends Component {   //here the class is being defined.
     }
 
     newClasses() {
-        const {value: count} = this.state; 
+        const {value: count} = this.props.counter; 
         let class1 = "badge m-3 badge-";
         if (count === 0) {
             class1 += "warning";
@@ -88,7 +89,7 @@ class Counter extends Component {   //here the class is being defined.
     
 
     formatCount() { //this is basic setter method.
-        const {value: count} = this.state;
+        const {value: count} = this.props.counter;
         if (count === 0){
             return "Zero";
         }

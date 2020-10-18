@@ -15,6 +15,24 @@ class Counters extends Component {
         ]
     };
 
+    handleReset = () => {
+        const counters = this.state.counters.map(c => {
+            c.value = 0;
+            return c;
+        });
+
+        this.setState({counters : counters});
+    };
+
+    handleIncrement = counter => {
+        const counters = [...this.state.counters];
+        const index = counters.indexOf(counter);
+        counters[index] = {...counter}; 
+        counters[index].value++;
+        this.setState({ counters: counters })
+        console.log(this.state.counters[index]);
+    };
+
     handleDelete = counterID => {  //this is the event handler, these are always called in the parent file. i.e. the counters.jsx file.
         const counters = this.state.counters.filter(c => c.id != counterID);
         this.setState({counters: counters});
@@ -25,6 +43,7 @@ class Counters extends Component {
         
         return(
             <div>
+                <button onClick={this.handleReset} className="btn btn-primary btn-sm m2">Reset</button>
                 {this.state.counters.map(counters => 
                     <Counter 
                     key={counters.id} //this particular property is used by react internally and hence can't be used for calling purposes so id is used.
@@ -32,6 +51,7 @@ class Counters extends Component {
                     id={counters.id}*/ //instead of using these many prop. we can pass the object directly into the Counter. 
                     counter={counters}
                     onDelete={this.handleDelete}
+                    onIncrement={this.handleIncrement}
                     />)
                 };
             </div>
